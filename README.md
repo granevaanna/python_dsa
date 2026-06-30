@@ -1,4 +1,4 @@
-# python_dsa
+# Python DSA
 Repository for studying Data Structures & Algorithms in Python.
 
 ## Progress
