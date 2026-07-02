@@ -10,3 +10,6 @@ Repository for studying Data Structures & Algorithms in Python.
 - ✅ 1470 Shuffle the Array
 - ✅ 121 Best Time to Buy and Sell Stock
 - ✅ 27 Remove Element
+- ✅ 26 Remove Duplicates from Sorted Array
+- ✅ 88 Merge Sorted Array
+- ✅ 1 Two Sum
