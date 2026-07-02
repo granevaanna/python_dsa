@@ -9,3 +9,4 @@ Repository for studying Data Structures & Algorithms in Python.
 - ✅ 1929 Concatenation of Array
 - ✅ 1470 Shuffle the Array
 - ✅ 121 Best Time to Buy and Sell Stock
+- ✅ 27 Remove Element
