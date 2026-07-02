@@ -1,0 +1,101 @@
+'''
+LeetCode: 26
+Title: Remove Duplicates from Sorted Array
+Difficulty: Easy
+
+Topics:
+- Array
+- Two pointers
+
+Task:
+Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once.
+The relative order of the elements should be kept the same.
+Consider the number of unique elements in nums to be k. After removing duplicates, return the number of unique elements k.
+The first k elements of nums should contain the unique numbers in sorted order. The remaining elements beyond index k - 1 can be ignored.
+
+Example 1:
+Input: nums = [1,1,2]
+Output: 2, nums = [1,2,_]
+Explanation: Your function should return k = 2, with the first two elements of nums being 1 and 2 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+
+Example 2:
+Input: nums = [0,0,1,1,1,2,2,3,3,4]
+Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+Explanation: Your function should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+
+
+Constraints:
+1 <= nums.length <= 3 * 104
+-100 <= nums[i] <= 100
+nums is sorted in non-decreasing order.
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+
+Idea:
+Проверить не пустой ли массив. Если пустой, то возвращаем 0.
+Если не пустой, то начать цикл со второго элемента массива и вести счетчик write_idx.
+В цикле сравниваем текущий элемент и предыдущий в списке.
+Если они не равны, то в nums[write_idx] записываем текущий элемент и счетчик write_idx увеличиваем на один.
+Если они равны, то ничего не делаем, переходим к следующему элементу в цикле.
+Таким образом, в начале списка собираем все уникальные элементы списка в том порядке, в котором они и стояли,
+а write_idx еще и считает их количество.
+
+По логике задача очень похожа на 27 Remove Element.
+Эта задача использует тот же паттерн read/write pointers, но дополнительно требует сохранить порядок элементов.
+
+
+Date: 2026-07-02
+'''
+
+from typing import List
+
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+       if not nums:
+           return 0
+       write_idx = 1
+       for read_idx in range(1, len(nums)):
+           if nums[read_idx] != nums[read_idx - 1]:
+               nums[write_idx] = nums[read_idx]
+               write_idx += 1
+       return write_idx
+
+
+
+if __name__ == "__main__":
+    solution = Solution()
+
+    # Example 1
+    nums = [1,1,2]
+    result = solution.removeDuplicates(nums)
+    print(result)
+    print(nums)
+    assert result == 2
+    assert nums[:result] == [1,2]
+
+    # Example 2
+    nums = [0,0,1,1,1,2,2,3,3,4]
+    result = solution.removeDuplicates(nums)
+    print(result)
+    print(nums)
+    assert result == 5
+    assert nums[:result] == [0,1,2,3,4]
+
+    # Example 3 (1-element array)
+    nums = [8]
+    result = solution.removeDuplicates(nums)
+    print(result)
+    print(nums)
+    assert result == 1
+    assert nums[:result] == [8]
+
+    # Example 4 (empty array)
+    nums = []
+    result = solution.removeDuplicates(nums)
+    print(result)
+    print(nums)
+    assert result == 0
+    assert nums[:result] == []
