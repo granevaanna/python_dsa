@@ -13,3 +13,5 @@ Repository for studying Data Structures & Algorithms in Python.
 - ✅ 26 Remove Duplicates from Sorted Array
 - ✅ 88 Merge Sorted Array
 - ✅ 1 Two Sum
+- ✅ 217 Contains Duplicate
+- ✅ 242 Valid Anagram
