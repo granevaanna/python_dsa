@@ -31,15 +31,20 @@ Constraints:
 -109 <= target <= 109
 Only one valid answer exists.
 
-Time Complexity: O(n^2)
-Space Complexity: O(1)
+Time Complexity: O(n)
+Space Complexity: O(n)
 
 Idea:
-Идти циклом по массиву и для каждого элемента перебирать оставшиеся элементы массива.
-Как только сумма равно target, возвращает их индексы.
+Создать словарь nums_idx.
+Идти циклом по элементам исходного массива nums.
+Для каждого элемента находить число, которое нужно добавить (complement), чтобы получить target.
+Далее проверь есть ли это дополнение в словаре:
+- Если есть, то возвращаем индекс текущего элемента и индекс элемента из словаря.
+- Если нет, то записывает текущий элемент в словарь как ключ, а в значение его индекс.
 
-Сложность:
-Time Complexity: O(n^2), надо подумать как это оптимизировать.
+Так как поиск ключа в словаре выполняется в среднем за O(1),
+то каждый элемент массива обрабатывается один раз, и общая сложность алгоритма составляет O(n),
+а не O(n^2), как при переборе всех пар элементов. Но при этом Space Complexity стала тоже O(n), а была O(1).
 
 Date: 2026-07-02
 '''
@@ -48,10 +53,12 @@ from typing import List
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        for i in range(len(nums)):
-            for j in range(i+1, len(nums)):
-                if nums[i] + nums[j] == target:
-                    return [i, j]
+        nums_idx = {}
+        for i, num in enumerate(nums):
+            complement = target - num
+            if complement  in nums_idx:
+                return [nums_idx[complement], i]
+            nums_idx[num] = i
         return []
 
 
