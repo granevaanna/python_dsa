@@ -6,6 +6,7 @@ Difficulty: Medium
 Topics:
 - Array
 - Divide and Conquer
+- Dynamic Programming
 
 Task:
 Given an integer array nums, find the subarray with the largest sum, and return its sum.
@@ -50,6 +51,7 @@ class Solution:
         max_sum = nums[0]
         for i in range(len(nums)):
             current_sum = nums[i]
+            max_sum = max(current_sum, max_sum)
             for j in range(i+1, len(nums)):
                 current_sum += nums[j]
                 max_sum = max(current_sum, max_sum)
