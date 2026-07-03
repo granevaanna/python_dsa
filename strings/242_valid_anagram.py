@@ -29,31 +29,36 @@ Space Complexity: O(n)
 
 Idea:
 Проверить, равны ли длины строк. Если нет, то сразу вернуть False.
-Если длины строк равны, то создать два словаря для каждой строки,
-в которых в качестве ключа хранить буквы, а в качестве значения - количество букв в слове (эту логику вынести в отдельную функцию: char_counts).
-Если словари равны, строки являются анаграммами.
+Если длины строк равны, то создать словарь для первой строки,
+в котором в качестве ключа хранить буквы, а в качестве значения - количество букв в строке.
+Далее пройти циклом по второй строке. Если текущей буквы нет в словаре, то сразу возвращаем False.
+Если текущая буква уже есть в словаре, то от значения отнимаем 1.
+Когда значение равно 0, то удаляем пару ключ-значение из словаря.
+Возвращаем True, если словарь после прохождения цикла пуст.
 
 Date: 2026-07-02
 '''
 
+from collections import Counter
 
 class Solution:
-    def char_counts(self, s: str) -> dict[str, int]:
-        s_counts = {}
-        for s_char in s:
-            if s_char in s_counts:
-                s_counts[s_char] += 1
-            else:
-                s_counts[s_char] = 1
-        return s_counts
-
     def isAnagram(self, s: str, t: str) -> bool:
         if len(s) != len(t):
             return False
-        s_counts = self.char_counts(s)
-        t_counts = self.char_counts(t)
-        return s_counts == t_counts
+        s_counts = {}
+        for s_char in s:
+            s_counts[s_char] = s_counts.get(s_char, 0) + 1
+        for t_char in t:
+            if t_char not in s_counts:
+                return False
+            s_counts[t_char] -= 1
+            if s_counts[t_char] == 0:
+                del s_counts[t_char]
+        return not s_counts
 
+    # Pythonic solution using Counter
+    def isAnagram_pythonic(self, s: str, t: str) -> bool:
+        return Counter(s) == Counter(t)
 
 
 if __name__ == "__main__":
