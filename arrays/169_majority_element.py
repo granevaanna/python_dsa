@@ -26,12 +26,21 @@ The input is generated such that a majority element will exist in the array.
 Follow-up: Could you solve the problem in linear time and in O(1) space?
 
 Time Complexity: O(n)
-Space Complexity: O(n)
+Space Complexity: O(1)
 
 Idea:
-Создать словарь nums_count, где ключ - число из массива, значение - количество его вхождений в массив.
-Пройти циклом по массиву, создавать ключ с текущим элементом, если его нет, а если есть, то добавлять один к значению.
-После цикла вернуть ключ из словаря с наибольшмм значением.
+Создать переменную candidate, куда записать первый элемент массива и count, куда присвоить 1.
+Идти циклом по массиву, начиная со второго элемента массива.
+В цикле: если текущий элемент равен значению candidate, то увеличиваем счетчик count на 1,
+а если не равен, то отнимаем от счетчика count 1.
+Если после этого счетчик count стал равен 0, заменяем candidate на текущий элемент,
+а счетчику count присваиваем значение 1.
+После прохождения цикла возвращаем значение candidate
+
+Это алгоритм большинства голосов Бойера-Мура, но для этого алгоритма нужно делать еще один проход,
+чтобы убедиться, что majority element действительно встречается n/2 раза.
+Например, для nums = [1,2,3,4], текущий алгоритм вернет 4, хотя большинства нет.
+(здесь это можно не делать, так как условие гарантирует, что подходящий элемент будет в массиве).
 
 Date: 2026-07-06
 '''
@@ -40,10 +49,17 @@ from typing import List
 
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        nums_count = {}
-        for num in nums:
-            nums_count[num] = nums_count.get(num, 0) + 1
-        return max(nums_count, key=nums_count.get)
+        candidate = nums[0]
+        count = 1
+        for i in range(1, len(nums)):
+            if nums[i] == candidate:
+                count += 1
+            else:
+                count -= 1
+                if count ==0:
+                    candidate = nums[i]
+                    count = 1
+        return candidate
 
 if __name__ == "__main__":
     solution = Solution()
