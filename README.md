@@ -14,6 +14,9 @@ Repository for studying Data Structures & Algorithms in Python.
 - ✅ 88 Merge Sorted Array
 - ✅ 1 Two Sum
 - ✅ 217 Contains Duplicate
+- ✅ 242 Valid Anagram
+- ✅ 53 Maximum Subarray
+- ✅ 169 Majority Element
 
 ### Strings
 - ✅ 242 Valid Anagram
