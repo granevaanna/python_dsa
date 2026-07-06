@@ -5,8 +5,6 @@ Difficulty: Medium
 
 Topics:
 - Array
-- Divide and Conquer
-- Dynamic Programming
 
 Task:
 Given an integer array nums, find the subarray with the largest sum, and return its sum.
