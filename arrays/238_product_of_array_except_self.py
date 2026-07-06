@@ -30,12 +30,14 @@ Follow up: Can you solve the problem in O(1) extra space complexity?
 
 Time Complexity: O(n)
 Space Complexity: O(n)
+Extra Space Complexity: O(1)
 
 Idea:
-Создать два массива prefix_product и sufix_product.
-prefix_product[i] хранит произведение всех элементов слева от nums[i].
-suffix_product[i] хранит произведение всех элементов справа от nums[i].
-После этого вернуть массив [prefix_product[i] * suffix_product[i]], где i in range(len(nums)).
+Создать массив result длины равной длине массива nums и переменную suffix равную 1.
+Пройти массив циклом, начиная со второго элемента и в result[i] записывать произведение всех элементов слева от nums[i].
+Затем снова пройти массив циклом, начиная с конца,
+result[i] домножать на suffix, в которой хранится значение произведения всех элементов справа от текущего,
+а переменную suffix домножать на nums[i].
 Вернуть массив result.
 
 Date: 2026-07-06
@@ -45,13 +47,14 @@ from typing import List
 
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        prefix_product = [1] * len(nums)
-        suffix_product = [1] * len(nums)
+        result = [1] * len(nums)
+        suffix = 1
         for i in range(1, len(nums)):
-            prefix_product[i] = prefix_product[i-1] * nums[i-1]
-        for i in range(len(nums) - 2, -1, -1):
-            suffix_product[i] = suffix_product[i+1] * nums[i+1]
-        return [prefix_product[i] * suffix_product[i] for i in range(len(nums))]
+            result[i] = result[i-1] * nums[i-1]
+        for i in range(len(nums) - 1, -1, -1):
+            result[i] *= suffix
+            suffix *= nums[i]
+        return result
 
 if __name__ == "__main__":
     solution = Solution()
