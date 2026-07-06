@@ -32,14 +32,17 @@ Constraints:
 
 Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 
-Time Complexity: O(n^2)
+Time Complexity: O(n)
 Space Complexity: O(1)
 
 Idea:
-Создать переменную max_sum и записать в нее первый элемент массива.
-Для каждого индекса последовательно вычислять суммы всех подмассивов, начинающихся с этого индекса.
-После каждого вычисления обновлять max_sum, если текущая сумма больше.
-Вернуть max_sum.
+Алгоритм Канаде.
+Создать переменные global_max и current_max, записать в них первый элемент массива.
+Идти циклом по массиву, начиная со второго элемента:
+В current_max записывать большее число из текущего элемента и суммы текущего элемента и current_max
+(чтобы определить, что выгоднее: начать считать сумму с нового элемента или продолжить предыдущую).
+В global_max записать значение current_max, если оно больше чем то, что было записано в global_max.
+После завершения цикла вернуть global_max.
 
 Date: 2026-07-03
 '''
@@ -48,14 +51,12 @@ from typing import List
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        max_sum = nums[0]
-        for i in range(len(nums)):
-            current_sum = nums[i]
-            max_sum = max(current_sum, max_sum)
-            for j in range(i+1, len(nums)):
-                current_sum += nums[j]
-                max_sum = max(current_sum, max_sum)
-        return max_sum
+        global_max = nums[0]
+        current_max = nums[0]
+        for i in range(1, len(nums)):
+            current_max = max(nums[i], current_max + nums[i])
+            global_max = max(current_max, global_max)
+        return global_max
 
 if __name__ == "__main__":
     solution = Solution()
