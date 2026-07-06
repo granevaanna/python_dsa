@@ -70,10 +70,10 @@ if __name__ == "__main__":
     nums = [3,2,3]
     result = solution.majorityElement(nums)
     print(result)
-    # assert result == 3
+    assert result == 3
 
     # Example 2
     nums = [2,2,1,1,1,2,2]
     result = solution.majorityElement(nums)
     print(result)
-    # assert result == 2
+    assert result == 2
