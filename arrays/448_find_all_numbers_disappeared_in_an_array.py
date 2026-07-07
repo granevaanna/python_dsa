@@ -27,12 +27,18 @@ n == nums.length
 Follow up: Could you do it without extra space and in O(n) runtime? You may assume the returned list does not count as extra space.
 
 Time Complexity: O(n)
-Space Complexity: O(n)
+Space Complexity: O(1)
 
 Idea:
-Создать множество nums_sequence с числами от одного до len(nums).
-Пройти циклом по списку nums и удалить каждый встретившийся элемент из множества nums_sequence.
-Вернуть множество, преобразовав его в список.
+Пройти циклом по списку nums.
+Так как все числа из списка лежат в диапазоне от 1 до len(nums),
+а индексы у этих чисел идут от 0 до (len(nums) - 1),
+мы можем использовать индексы, чтобы помечать какие числа встречались в списке.
+Для каждого элемента num перейти к индексу (abs(num) - 1) и сделать число по этому индексу отрицательным.
+Элемент берем по модулю, так как некоторые числа могли быть уже помечены ранее и на данный момент могут быть отрицательными,
+а также от элемента отнимаем единицу, так как индексы нумеруются от 0 до (len(nums) - 1).
+Перед изменением знака проверить, что число по этому индексу еще положительное (то есть не было помечено ранее).
+Вернуть список индексов, добавив к ним 1, под которыми числа положительны (то есть не были помечены, а значит не встречались в списке).
 
 Date: 2026-07-07
 '''
@@ -41,10 +47,11 @@ from typing import List
 
 class Solution:
     def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
-        nums_sequence = set(range(1, len(nums) + 1))
         for num in nums:
-            nums_sequence.discard(num)
-        return list(nums_sequence)
+            index = abs(num) - 1
+            if nums[index] > 0:
+                nums[index] *= -1
+        return [i+1 for i, num in enumerate(nums) if num>0]
 
 if __name__ == "__main__":
     solution = Solution()
@@ -53,7 +60,7 @@ if __name__ == "__main__":
     nums = [4,3,2,7,8,2,3,1]
     result = solution.findDisappearedNumbers(nums)
     print(result)
-    assert sorted(result) == [5, 6]
+    assert result == [5, 6]
 
     # Example 2
     nums = [1,1]
