@@ -17,6 +17,7 @@ Repository for studying Data Structures & Algorithms in Python.
 - ✅ 242 Valid Anagram
 - ✅ 53 Maximum Subarray
 - ✅ 169 Majority Element
+- ✅ 448 Find All Numbers Disappeared in an Array
 
 ### Strings
 - ✅ 242 Valid Anagram
