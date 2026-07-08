@@ -37,16 +37,17 @@ Constraints:
 s consists only of printable ASCII characters.
 
 Time Complexity: O(n)
-Space Complexity: O(n)
+Space Complexity: O(1)
 
 Idea:
-Создать новый список, включающий только буквы и цифры в нижнем регистре из входящей строки.
 Далее создать два указателя для левого и правого индексов (left_idx и right_idx).
-Идти двумя указателями навстречу друг дургу, пока left_idx < right_idx
-и сравнивать значения, равноудаленные от начала и конца.
-Если на каком-то этапе равноудаленные элементы не совпадают, то сразу вернуть False.
-На каждом этапе цикла увеличивать на один left_idx и уменьшать на один right_idx.
-После проходения цикла вернуть True, в таком случае все элементы совпали,
+Идти двумя указателями навстречу друг другу, пока left_idx < right_idx.
+Проверять, являются ли текущие элементы буквами или числами.
+Если нет, то сдвигуть соответствующий указатель и начать цикл заново,
+а если да, то сравнить их значения в нижнем регистре,
+если они не совпадают, то сразу вернуть False.
+Если совпали, то сдвинуть указатели left_idx и right_idx на один.
+После прохождения цикла вернуть True, в таком случае все элементы совпали,
 а значит строка является палиндромом.
 
 Date: 2026-07-07
@@ -55,36 +56,54 @@ Date: 2026-07-07
 
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        new_s = []
-        for char in s:
-            if char.isalpha() or char.isdigit():
-                new_s.append(char.lower())
         left_idx = 0
-        right_idx = len(new_s)-1
+        right_idx = len(s)-1
         while left_idx < right_idx:
-            if new_s[left_idx] != new_s[right_idx]:
+            if not s[left_idx].isalnum():
+                left_idx += 1
+                continue
+            if not s[right_idx].isalnum():
+                right_idx -= 1
+                continue
+            if s[left_idx].lower() != s[right_idx].lower():
                 return False
             left_idx += 1
             right_idx -= 1
         return True
 
+    def display_result(self, s:str, result: bool):
+        if result:
+            print(f'"{s}"\nThis is a palindrome.')
+        else:
+            print(f'"{s}"\nThis isn\'t a palindrome.')
+
 if __name__ == "__main__":
     solution = Solution()
 
     # Example 1
+    print('-------- Example 1 ------------')
     s = "A man, a plan, a canal: Panama"
     result = solution.isPalindrome(s)
-    print(result)
-    assert result == True
+    solution.display_result(s, result)
+    assert result is True
 
     # Example 2
+    print('-------- Example 2 ------------')
     s = "race a car"
     result = solution.isPalindrome(s)
-    print(result)
-    assert result == False
+    solution.display_result(s, result)
+    assert result is False
 
     # Example 3
+    print('-------- Example 3 ------------')
     s = " "
     result = solution.isPalindrome(s)
-    print(result)
-    assert result == True
+    solution.display_result(s, result)
+    assert result is True
+
+    # Example 4 (my)
+    print('-------- Example 4 ------------')
+    s = "0P"
+    result = solution.isPalindrome(s)
+    solution.display_result(s, result)
+    assert result is False
