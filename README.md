@@ -21,3 +21,4 @@ Repository for studying Data Structures & Algorithms in Python.
 
 ### Strings
 - ✅ 242 Valid Anagram
+- ✅ 125 Valid Palindrome
