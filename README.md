@@ -18,6 +18,8 @@ Repository for studying Data Structures & Algorithms in Python.
 - ✅ 53 Maximum Subarray
 - ✅ 169 Majority Element
 - ✅ 448 Find All Numbers Disappeared in an Array
+- ✅ 11 Container With Most Water
+- ✅ 167 Two Sum II - Input Array Is Sorted
 
 ### Strings
 - ✅ 242 Valid Anagram
